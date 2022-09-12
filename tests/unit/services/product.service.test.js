@@ -49,7 +49,7 @@ describe('Product service', function () {
 
       // console.log('AAAAAAAQUI', response);
 
-      expect(response).to.deep.equal(expected[0]);
+      expect(response).to.deep.equal(expected);
     })
   })
   describe('Encontra um produto pelo id', function () {
@@ -76,7 +76,7 @@ describe('Product service', function () {
     const payload = 2;
 
     it('Retorna um produto pelo id com sucesso', async function () {
-      const response = await productService.findById(payload);
+      const response = await prodServ.findById(payload);
 
       expect(response).to.deep.equal(expected);
     })
