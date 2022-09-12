@@ -84,4 +84,71 @@ describe('Product Controller', function () {
       expect(res.json).to.have.been.calledWith({ message: 'Product not found' });
     });
   });
+  describe('Cadastra um novo produto com sucesso', function () {
+    after(async function () {
+      sinon.restore();
+    })
+    it('É chamado o status 201', async function () {
+      const req = {
+        body: {
+          name: 'Xablauser',
+        },
+      };
+      const res = {};
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+
+      await prodController.createProduct(req, res);
+
+      expect(res.status).to.have.been.calledOnceWith(201);
+    })
+    describe('Cadastra um produto com erros semânticos', function () {
+      const invalidValueResponse = {
+        type: 'INVALID_VALUE',
+        message: '"name" length must be at least 5 characters long'
+      };
+
+      const nameDoesntExistRespose = {
+        type: 'INVALID_VALUE',
+        message: '\"name\" is required'
+      };
+
+      after(async function () {
+        sinon.restore();
+      })
+      it('Verifica se há uma mensagem de erro quando tentamos cadastrar um produto sem o nome', async function () {
+        sinon.stub(prodServ, 'newProduct').resolves(nameDoesntExistRespose);
+
+        const req = {
+          body: {}
+        };
+        const res = {};
+
+        res.status = sinon.stub().returns(res);
+        res.json = sinon.stub().returns();
+
+        await prodController.createProduct(req, res);
+
+        expect(res.status).to.have.been.calledOnceWith(400);
+      })
+      it('Verifica se há uma mensagem de erro quando tentamos cadastrar um produto com o nome inválido', async function () {
+        sinon.stub(prodServ, 'newProduct').resolves(invalidValueResponse);
+
+        const req = {
+          body: {
+            name: 'Xab'
+          }
+        };
+        const res = {};
+
+        res.status = sinon.stub().returns(res);
+        res.json = sinon.stub().returns();
+
+        await prodController.createProduct(req, res);
+
+        expect(res.status).to.have.been.calledOnceWith(422);
+      })
+    })
+  })
 });

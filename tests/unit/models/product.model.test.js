@@ -2,6 +2,7 @@ const sinon = require('sinon');
 const { expect } = require('chai');
 const { productModel } = require('../../../src/models');
 const connection = require('../../../src/models/connection');
+const { newProd } = require('./product.model.mock');
 
 describe('Product Model', function () {
   describe('Lista todos os produtos', function () {
@@ -76,6 +77,21 @@ describe('Product Model', function () {
       const response = await productModel.findById(payload);
 
       expect(response).to.deep.equal(expected);
+    })
+  })
+  describe('Cadastrar um novo produto', function () {
+    before(async function () {
+      sinon.stub(connection, 'execute').resolves([]);
+    })
+    after(async function () {
+      connection.execute.restore();
+    })
+
+    const expected = 4;
+    it('Com sucesso', async function () {
+      const response = await productModel.insert(newProd);
+
+      expect(response).to.equal(expected)
     })
   })
 })
