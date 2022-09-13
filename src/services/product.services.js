@@ -1,4 +1,5 @@
 const { productModel } = require('../models');
+const { searchName } = require('../models/product.model');
 const { validateNewProduct } = require('./validations/validations');
 
 const findAll = async () => {
@@ -37,10 +38,17 @@ const deleteProduct = async (id) => {
   return { type: null, message: '' };
 };
 
+const findByName = async (prodName) => {
+  const result = await searchName(prodName);
+
+  return result;
+};
+
 module.exports = {
   findAll,
   findById,
   newProduct,
   updateProduct,
   deleteProduct,
+  findByName,
 };
