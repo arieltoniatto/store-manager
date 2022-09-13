@@ -2,7 +2,7 @@ const sinon = require('sinon');
 const { expect } = require('chai');
 const { productModel } = require('../../../src/models');
 const connection = require('../../../src/models/connection');
-const { newProd } = require('./product.model.mock');
+// const { newProd } = require('./product.model.mock');
 
 describe('Product Model', function () {
   describe('Lista todos os produtos', function () {
@@ -80,18 +80,14 @@ describe('Product Model', function () {
     })
   })
   describe('Cadastrar um novo produto', function () {
-    before(async function () {
-      sinon.stub(connection, 'execute').resolves([]);
-    })
-    after(async function () {
-      connection.execute.restore();
-    })
-
-    const expected = 4;
     it('Com sucesso', async function () {
-      const response = await productModel.insert(newProd);
+      sinon.stub(connection, 'execute').resolves([{ insertId: 4}])
 
-      expect(response).to.equal(expected)
+      const response = await productModel.insert({ "name": "Xablaster" });
+
+      const expected = { "id": 4, "name": "Xablaster" };
+
+      expect(response).to.be.deep.equal(expected)
     })
   })
 })
