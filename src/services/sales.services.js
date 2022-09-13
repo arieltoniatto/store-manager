@@ -1,4 +1,4 @@
-const { insertSales, salesReport, saleReportById } = require('../models/sales.model');
+const { insertSales, salesReport, saleReportById, deleteSales, findById } = require('../models/sales.model');
 const { validateNewSales, validateProductId } = require('./validations/validations');
 
 const newSale = async (saleDetails) => {
@@ -25,8 +25,21 @@ const salesById = async (id) => {
   return result;
 };
 
+const salesDelete = async (id) => {
+  const exists = await findById(id);
+
+  if (exists.length === 0) {
+    return { type: 'NOT_FOUND', message: 'Sales not found' };
+  }
+
+  const result = await deleteSales(id);
+
+  return result;
+};
+
 module.exports = {
   newSale,
   salesInfo,
   salesById,
+  salesDelete,
 };

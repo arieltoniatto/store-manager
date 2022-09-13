@@ -1,4 +1,4 @@
-const { newSale, salesInfo, salesById } = require('../services/sales.services');
+const { newSale, salesInfo, salesById, salesDelete } = require('../services/sales.services');
 const { mapError } = require('../utils/errorMap');
 
 const createSale = async (req, res) => {
@@ -26,8 +26,19 @@ const findSaleById = async (req, res) => {
   return res.status(200).json(result);
 };
 
+const deleteSale = async (req, res) => {
+  const { id } = req.params;
+
+  const { type, message } = await salesDelete(id);
+
+  if (type) return res.status(mapError(type)).json({ message: 'Sale not found' });
+
+  return res.status(204).json(message);
+};
+
 module.exports = {
   createSale,
   findAllSales,
   findSaleById,
+  deleteSale,
 };
