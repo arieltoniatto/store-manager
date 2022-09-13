@@ -49,8 +49,9 @@ const saleReportById = async (id) => {
 FROM StoreManager.sales AS sa
 INNER JOIN StoreManager.sales_products AS sp
 ON sa.id = sp.sale_id
-WHERE sp.sale_id = ${id}
+WHERE sp.sale_id = ?
 ORDER BY sp.sale_id ASC, sp.product_id ASC;`,
+    [id],
   );
 
   return result;
@@ -64,6 +65,20 @@ const deleteSales = async (id) => {
   return result;
 };
 
+const updateSales = async (newData, id) => {
+  const [result] = await connection.execute(
+    `UPDATE StoreManager.sales_products
+  SET quantity = ?
+  WHERE product_id = ? AND sale_id = ?;`,
+    [newData.quantity, newData.productId, id],
+  );
+
+  console.log('newdata', newData);
+  console.log('result', result);
+
+  return result;
+};
+
 module.exports = {
   findAllSales,
   findById,
@@ -71,4 +86,5 @@ module.exports = {
   salesReport,
   saleReportById,
   deleteSales,
+  updateSales,
 };

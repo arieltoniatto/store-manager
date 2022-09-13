@@ -29,8 +29,9 @@ const insert = async ({ name }) => {
 const updateProduct = async ({ id, name }) => {
   await connection.execute(
     `UPDATE StoreManager.products
-SET name = '${name}'
-WHERE id = ${id};`,
+SET name = ?
+WHERE id = ?`,
+    [name, id],
   );
 
   return { id, name };
@@ -39,7 +40,8 @@ WHERE id = ${id};`,
 const deleteProd = async (id) => {
   await connection.execute(
     `DELETE FROM StoreManager.products
-WHERE id = ${id};`,
+WHERE id = ?;`,
+    [id],
   );
 
   return null;

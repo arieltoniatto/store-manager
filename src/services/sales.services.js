@@ -1,5 +1,5 @@
 const {
-  insertSales, salesReport, saleReportById, deleteSales, findById,
+  insertSales, salesReport, saleReportById, deleteSales, findById, updateSales,
 } = require('../models/sales.model');
 const { validateNewSales, validateProductId } = require('./validations/validations');
 
@@ -13,6 +13,18 @@ const newSale = async (saleDetails) => {
   const newSales = await insertSales(saleDetails);
 
   return { type: null, message: { id: newSales, itemsSold: saleDetails } };
+};
+
+const updateSale = async (info, id) => {
+  const error = await validateNewSales(info);
+  if (error.type) return error;
+
+  const idError = await validateProductId(info);
+  if (idError.type) return idError;
+
+  await info.forEach(async (ele) => updateSales(ele, id));
+
+  return { type: null, message: { saleId: id, itemsUpdated: info } };
 };
 
 const salesInfo = async () => {
@@ -44,4 +56,5 @@ module.exports = {
   salesInfo,
   salesById,
   salesDelete,
+  updateSale,
 };
