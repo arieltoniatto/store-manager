@@ -80,6 +80,9 @@ describe('Product Model', function () {
     })
   })
   describe('Cadastrar um novo produto', function () {
+    after(async function () {
+      connection.execute.restore();
+    });
     it('Com sucesso', async function () {
       sinon.stub(connection, 'execute').resolves([{ insertId: 4}])
 
@@ -90,4 +93,20 @@ describe('Product Model', function () {
       expect(response).to.be.deep.equal(expected)
     })
   })
+  // describe('Encontra um produto pela query', function () {
+  //   it('Com sucesso', async function () {
+  //     sinon.stub(connection, 'execute').resolves('arte')
+
+  //     const response = await productModel.searchName('arte')
+
+  //     const expected = [
+  //       {
+  //         "id": 1,
+  //         "name": "Martelo de Thor"
+  //       }
+  //     ];
+
+  //     expect(response).to.be.deep.equal(expected);
+  //   })
+  // })
 })

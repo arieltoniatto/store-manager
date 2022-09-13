@@ -4,13 +4,19 @@
     "colId": "history",
     "containerId": "",
     "name": "localhost:/3306/products",
-    "url": "localhost:3000/sales/1",
-    "method": "PUT",
+    "url": "localhost:3000/products/search?q=arte",
+    "method": "GET",
     "sortNum": 0,
     "created": "2022-09-09T18:33:17.977Z",
-    "modified": "2022-09-13T22:23:59.094Z",
+    "modified": "2022-09-13T23:01:23.659Z",
     "headers": [],
-    "params": [],
+    "params": [
+      {
+        "name": "q",
+        "value": "arte",
+        "isPath": false
+      }
+    ],
     "body": {
       "type": "json",
       "raw": "[\n  {\n    \"productId\": 1,\n    \"quantity\": 13\n  },\n  {\n    \"productId\": 2,\n    \"quantity\": 32\n  }\n]",
