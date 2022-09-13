@@ -1,4 +1,6 @@
-const { insertSales, salesReport, saleReportById, deleteSales, findById } = require('../models/sales.model');
+const {
+  insertSales, salesReport, saleReportById, deleteSales, findById,
+} = require('../models/sales.model');
 const { validateNewSales, validateProductId } = require('./validations/validations');
 
 const newSale = async (saleDetails) => {
