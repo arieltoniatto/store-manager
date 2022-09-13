@@ -30,13 +30,7 @@ const validateProductId = async (salesDetail) => {
 };
 
 const validateNewSales = async (salesDetails) => {
-  // const { type, message } = await validateProductId(salesDetails);
-
-  // if (type) return { type, message };
-
   const { error } = await addSaleSchema.validate(salesDetails);
-
-  console.log(error);
 
   if (error) {
     if (error.message.includes('is required')) {

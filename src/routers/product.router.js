@@ -10,4 +10,8 @@ router.post('/', productController.createProduct);
 
 router.get('/:id', productController.findById);
 
+router.put('/:id', productController.updateProduct);
+
+router.delete('/:id', productController.deleteProduct);
+
 module.exports = router;
