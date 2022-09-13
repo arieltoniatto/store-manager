@@ -5,15 +5,15 @@
     "containerId": "",
     "name": "localhost:/3306/products",
     "url": "localhost:3000/sales/",
-    "method": "POST",
+    "method": "GET",
     "sortNum": 0,
     "created": "2022-09-09T18:33:17.977Z",
-    "modified": "2022-09-12T22:29:40.892Z",
+    "modified": "2022-09-13T17:27:49.184Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "[\n  {\n    \"productId\": 1,\n    \"quantity\": 0\n  },\n  {\n    \"productId\": 2,\n    \"quantity\": 5\n  }\n]",
+      "raw": "[\n  {\n    \"productId\": 1,\n    \"quantity\": 2\n  },\n  {\n    \"productId\": 2,\n    \"quantity\": 5\n  }\n]",
       "form": []
     },
     "tests": []

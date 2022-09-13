@@ -1,4 +1,4 @@
-const { insertSales } = require('../models/sales.model');
+const { insertSales, salesReport, saleReportById } = require('../models/sales.model');
 const { validateNewSales, validateProductId } = require('./validations/validations');
 
 const newSale = async (saleDetails) => {
@@ -13,6 +13,20 @@ const newSale = async (saleDetails) => {
   return { type: null, message: { id: newSales, itemsSold: saleDetails } };
 };
 
+const salesInfo = async () => {
+  const result = await salesReport();
+
+  return result;
+};
+
+const salesById = async (id) => {
+  const result = await saleReportById(id);
+
+  return result;
+};
+
 module.exports = {
   newSale,
+  salesInfo,
+  salesById,
 };

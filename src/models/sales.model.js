@@ -31,21 +31,35 @@ const insertSales = async (salesDetails) => {
   return result.insertId;
 };
 
-// const salesReport = async (saleId) => {
-//   const [result] = await connection.execute(
-//     'SELECT product_id AS productId, quantity FROM StoreManager.sales_products WHERE sale_id = ?',
-//     [saleId],
-//   );
-//   console.log(result);
-//   return {
-//     id: saleId,
-//     itemsSold: result,
-//   };
-// };
+const salesReport = async () => {
+  const [result] = await connection.execute(
+    `SELECT sp.sale_id AS saleId, sa.date, sp.product_id AS productId, sp.quantity
+FROM StoreManager.sales AS sa
+INNER JOIN StoreManager.sales_products AS sp
+ON sa.id = sp.sale_id
+ORDER BY sp.sale_id ASC, sp.product_id ASC;`,
+  );
+
+  return result;
+};
+
+const saleReportById = async (id) => {
+  const [result] = await connection.execute(
+    `SELECT sa.date, sp.product_id AS productId, sp.quantity
+FROM StoreManager.sales AS sa
+INNER JOIN StoreManager.sales_products AS sp
+ON sa.id = sp.sale_id
+WHERE sp.sale_id = ${id}
+ORDER BY sp.sale_id ASC, sp.product_id ASC;`,
+  );
+
+  return result;
+};
 
 module.exports = {
   findAllSales,
   findById,
   insertSales,
-  // salesReport,
+  salesReport,
+  saleReportById,
 };
