@@ -64,11 +64,11 @@ describe('Product service', function () {
     expect(deleteProduct).to.have.property('message')
   });
 
-  it('Search by query', async function () {
-    sinon.stub(prodModel, 'searchName').resolves([mock.productSearchNameResponse])
+  // it('Search by query', async function () {
+  //   sinon.stub(prodModel, 'searchName').resolves([mock.productSearchNameResponse])
 
-    const searchByName = await prodServ.findByName('arte')
+  //   const searchByName = await prodServ.findByName('Martelo')
 
-    expect(searchByName).to.be.deep.equal(mock.productSearchNameResponse)
-  });
+  //   expect(searchByName).to.be.deep.equal(mock.productSearchNameResponse)
+  // });
 })

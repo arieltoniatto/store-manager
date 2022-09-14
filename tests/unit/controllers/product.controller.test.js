@@ -58,8 +58,9 @@ describe('Product Controller', function () {
 
   it('Update product', async function () {
     sinon.stub(prodServ, 'updateProduct').resolves(mock.productServiceResponse)
+    sinon.stub(prodServ, 'findById').resolves(mock.productSearchNameResponse)
 
-    const req = { params: { id: 4 }, body: mock.rightProductBody }
+    const req = { params: { id: 1 }, body: mock.rightProductBody }
     const res = {}
 
     res.status = sinon.stub().returns(res);
@@ -73,8 +74,9 @@ describe('Product Controller', function () {
 
   it('Delete product', async function () {
     sinon.stub(prodServ, 'deleteProduct').resolves(mock.productServiceDelete)
+    sinon.stub(prodServ, 'findById').resolves(mock.productSearchNameResponse)
 
-    const req = { params: { id: 3 } }
+    const req = { params: { id: 1 } }
     const res = {}
 
     res.status = sinon.stub().returns(res);
@@ -88,7 +90,7 @@ describe('Product Controller', function () {
   it('Search by query', async function () {
     sinon.stub(prodServ, 'findByName').resolves(mock.productSearchNameResponse)
 
-    const req = { query: { q: 'arte' } }
+    const req = { query: { q: 'Martelo' } }
     const res = {}
 
     res.status = sinon.stub().returns(res);
